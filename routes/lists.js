@@ -1,20 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const Todo = require('../models/Todo');
+const List = require('../models/List');
 
 router.get('/', function(req, res) {
-    Todo.find().then((todos) => {
-        res.json(todos);
+    List.find().then((lists) => {
+        res.json(lists);
     }).catch((err) => {
         res.json(err);
     });
 });
 
 router.post('/', function(req, res) {
-    new Todo({
-        title: req.body.title,
-        date: req.body.date,
-        completed: req.body.completed,
+    new List({
+        name: req.body.name,
     }).save().then(() => {
         res.json({ success: true });
     }).catch((err) => {
@@ -25,7 +23,7 @@ router.post('/', function(req, res) {
 router.put('/:id', function(req, res) {
     const id = req.params.id;
 
-    Todo.findByIdAndUpdate({'_id': id}, req.body).then((newTodo) => {
+    List.findByIdAndUpdate({'_id': id}, req.body).then((newList) => {
         res.json({ success: true });
     }).catch((err) => {
         res.json({ success: false });
@@ -36,7 +34,7 @@ router.put('/:id', function(req, res) {
 router.delete('/:id', function(req, res) {
     const id = req.params.id;
 
-    Todo.findByIdAndRemove(id).then(() => {
+    List.findByIdAndRemove(id).then(() => {
         res.json({ success: true });
     }).catch((err) => {
         res.json({ success: false });
