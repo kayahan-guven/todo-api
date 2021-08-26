@@ -21,9 +21,7 @@ router.post('/', function(req, res) {
 });
 
 router.put('/:id', function(req, res) {
-    const id = req.params.id;
-
-    List.findByIdAndUpdate({'_id': id}, req.body).then((newList) => {
+    List.findByIdAndUpdate({'_id': req.params.id}, req.body).then((newList) => {
         res.json({ success: true });
     }).catch((err) => {
         res.json({ success: false });
@@ -32,9 +30,7 @@ router.put('/:id', function(req, res) {
 });
 
 router.delete('/:id', function(req, res) {
-    const id = req.params.id;
-
-    List.findByIdAndRemove(id).then(() => {
+    List.findByIdAndRemove(req.params.id).then(() => {
         res.json({ success: true });
     }).catch((err) => {
         res.json({ success: false });

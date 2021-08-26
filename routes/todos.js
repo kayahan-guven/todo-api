@@ -2,12 +2,21 @@ const express = require('express');
 const router = express.Router();
 const Todo = require('../models/Todo');
 
-router.get('/', function(req, res) {
+router.get('/list', function(req, res) {
     Todo.find().then((todos) => {
         res.json(todos);
     }).catch((err) => {
         res.json(err);
     });
+});
+
+router.get('/:id', function(req, res) {
+    Todo.findById({'_id': req.params.id}, req.body).then((todo) => {
+        res.json(todo);
+    }).catch((err) => {
+        res.json({ success: false });
+    });
+
 });
 
 router.post('/', function(req, res) {
