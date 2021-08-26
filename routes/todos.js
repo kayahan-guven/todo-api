@@ -23,6 +23,7 @@ router.post('/', function(req, res) {
     new Todo({
         title: req.body.title,
         date: req.body.date,
+        listId: req.body.listId,
         completed: req.body.completed,
     }).save().then(() => {
         res.json({ success: true });
